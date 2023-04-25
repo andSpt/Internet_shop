@@ -3,9 +3,7 @@ from django.shortcuts import render
 from products.models import ProductCategory, Product
 
 def index(request):
-    context = {'title': 'Store',
-
-}
+    context = {'title': 'Store',}
     return render(request, 'products/index.html', context)
 
 def products(request):
