@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+DOMAIN_NAME = 'http://localhost:8000'
 
 # Application definition
 
@@ -136,4 +137,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Users
 
 AUTH_USER_MODEL = 'users.User'
+
 LOGIN_URL = '/users/login/'
+
+LOGOUT_REDIRECT_URL = '/'
+
+# Sending emails
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'AsTestDj@yandex.ru'
+EMAIL_HOST_PASSWORD = 'ggzzhrqodisxanxe'
+EMAIL_USE_SSL = True

@@ -5,21 +5,21 @@ from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
+from common.views import CommonMixin
 from products.models import ProductCategory, Product, Basket
 from users.models import User
 
 
-class IndexView(TemplateView):
+class IndexView(CommonMixin, TemplateView):
     template_name = 'products/index.html'
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        context['title'] = 'Store'
-        return context
+    title = 'Store'
 
-class ProductsListView(ListView):
+
+class ProductsListView(CommonMixin, ListView):
     model = Product
     template_name = 'products/products.html'
     paginate_by = 3
+    title = 'Store - Каталог'
 
     def get_queryset(self):
         query_set = super(ProductsListView, self).get_queryset()
@@ -28,31 +28,8 @@ class ProductsListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProductsListView, self).get_context_data()
-        context['title'] = 'Store - Каталог'
         context['categories'] = ProductCategory.objects.all()
         return context
-
-
-
-
-# def products(request, category_id=None, page_number=1):
-#     if category_id:
-#         products = Product.objects.filter(category_id=category_id)
-#     else:
-#         products = Product.objects.all()
-#
-#     per_page = 3
-#     paginator = Paginator(products, per_page)
-#     products_paginator = paginator.page(page_number)
-#
-#
-#     context = {'title': 'Store - Каталог',
-#                'products': products_paginator,
-#                'categories': ProductCategory.objects.all(),
-#                }
-#     return render(request, 'products/products.html', context)
-
-
 
 
 @login_required
@@ -75,4 +52,5 @@ def basket_remove(request, basket_id):
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
 
