@@ -1,13 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
 from common.views import CommonMixin
-from products.models import ProductCategory, Product, Basket
-from users.models import User
+from products.models import Basket, Product, ProductCategory
 
 
 class IndexView(CommonMixin, TemplateView):
@@ -52,5 +49,3 @@ def basket_remove(request, basket_id):
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
-
