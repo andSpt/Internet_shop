@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-DOMAIN_NAME = 'http://localhost:8000'
+DOMAIN_NAME = 'http://127.0.0.1:8000'
 
 # Application definition
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.humanize',
     
     'allauth',
     'allauth.account',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'products',
     'django_extensions',
     'users',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -174,12 +176,12 @@ LOGIN_REDIRECT_URL = 'index'
 
 # Sending emails
 
-# EMAIL_HOST = 'smtp.yandex.ru'
-# EMAIL_PORT = 465
-# EMAIL_HOST_USER = 'AsTestDj@yandex.ru'
-# EMAIL_HOST_PASSWORD = 'ggzzhrqodisxanxe'
-# EMAIL_USE_SSL = True
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'AsTestDj@yandex.ru'
+EMAIL_HOST_PASSWORD = 'ggzzhrqodisxanxe'
+EMAIL_USE_SSL = True
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # OAuth
 
@@ -197,3 +199,13 @@ SOCIALACCOUNT_PROVIDERS = {
             ],
         }
 }
+
+# Celery
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+
+# Stripe
+STRIPE_PUBLIC_KEY = 'pk_test_51N4gyJDw5asRlMUmyd1Xw8OWXN8TGCDMM6QsJoSPnCRcvIfshYB3GlgZCfmNZ7xW1QXmTxxNXBRY0vXV9HwJ9BKm00QndJvcEK'
+STRIPE_SECRET_KEY = 'sk_test_51N4gyJDw5asRlMUmfkubnrePqY2J7sQwUBZ3jung8DcX1mHjaXwEMCmif2P2JQ5jyTPkHWW3rLxzWaT8whzOJZoD008LyieAc0'
+STRIPE_WEBHOOK_SECRET = 'whsec_b025c5413385fbad14eccc4069142abcf88dd5a63039bce2f546f8977af9b7aa'

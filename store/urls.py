@@ -19,13 +19,16 @@ from django.contrib import admin
 from django.urls import include, path
 
 from products.views import IndexView
+from orders.views import stripe_webhook_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('products/', include('products.urls', namespace='products')),
+    path('orders/', include('orders.urls', namespace='orders_create')),
     path('users/', include('users.urls', namespace='users')),
     path('accounts/', include('allauth.urls')),
+    path('webhook/stripe/', stripe_webhook_view, name='stipe_webhook'),
 
 ]
 
